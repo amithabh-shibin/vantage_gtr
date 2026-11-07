@@ -73,11 +73,16 @@
       if (!form.reportValidity()) return;
       const data = new FormData(form);
       const text = `Hello Vantage Global Travel Retail,\n\nName: ${data.get('name').trim()}\nCompany: ${data.get('company').trim() || 'Not specified'}\nContact: ${data.get('contact').trim()}\nInterest: ${data.get('interest')}\n\n${data.get('message').trim()}`;
-      const url = `https://wa.me/971527778569?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank', 'noopener,noreferrer');
+      const subject = encodeURIComponent('Vantage GTR website enquiry');
+      const url = `mailto:support@vantagegtr.com?subject=${subject}&body=${encodeURIComponent(text)}`;
       const status = document.getElementById('form-status');
-      status.replaceChildren(document.createTextNode('Your enquiry is ready. '));
-      const link = document.createElement('a'); link.href = url; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'Open WhatsApp to review and send'; link.style.textDecoration = 'underline'; status.append(link);
+      status.replaceChildren(document.createTextNode('Review and send your enquiry in your email app. '));
+      const link = document.createElement('a');
+      link.href = url;
+      link.textContent = 'Open email draft';
+      link.style.textDecoration = 'underline';
+      status.append(link);
+      window.location.href = url;
     });
   }
 })();
